@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RedCell Simulator - Educational Platform</title>
+    <script src="https:
+    <script src="https:
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.4;
+        }
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: #667eea;
+        }
+        .page {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        .page.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .home-page {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        .hero {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: #333;
+            margin-bottom: 1rem;
+            animation: slideDown 1s;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hero p {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: #666;
+            animation: slideUp 1s;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .pc-animation {
+            width: 300px;
+            height: 300px;
+            margin: 2rem auto;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .pc-screen {
+            width: 200px;
+            height: 150px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        .pc-screen::before {
+            content: '🖥️';
+            position: absolute;
+            font-size: 4rem;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .pc-base {
+            width: 220px;
+            height: 20px;
+            background: #555;
+            border-radius: 5px;
+            margin: 10px auto;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: popIn 0.5s backwards;
+        }
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .feature-card h3 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        .feature-card p {
+            color: #666;
+        }
+        .dashboard-page {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .dashboard-header h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        .malware-selector {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        .selector-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .malware-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        .malware-option {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 3px solid transparent;
+        }
+        .malware-option:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+        .malware-option.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea20 0%, #764ba220 100%);
+        }
+        .malware-option .icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+        .malware-option h3 {
+            color: #333;
+            margin-bottom: 0.3rem;
+        }
+        .malware-option p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .simulation-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            display: none;
+        }
+        .simulation-container.active {
+            display: block;
+        }
+        .sim-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .sim-title {
+            font-size: 1.8rem;
+            color: #333;
+        }
+        .sim-controls {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        .btn-danger {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+        }
+        .btn-success {
+            background: linear-gradient(135deg, #51cf66 0%, #37b24d 100%);
+            color: white;
+        }
+        .btn-secondary {
+            background: #e9ecef;
+            color: #333;
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .pc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .pc-item {
+            text-align: center;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 15px;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .pc-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s;
+        }
+        .pc-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .pc-item.infected {
+            background: rgba(255, 107, 107, 0.2);
+            border: 2px solid #ff6b6b;
+            animation: shake 0.5s;
+        }
+        .pc-item.infected .pc-icon::after {
+            content: '🦠';
+            position: absolute;
+            font-size: 1.5rem;
+            top: 10px;
+            right: 10px;
+        }
+        .pc-item.protected {
+            background: rgba(81, 207, 102, 0.2);
+            border: 2px solid #51cf66;
+        }
+        .pc-item.protected .pc-icon::after {
+            content: '🛡️';
+            position: absolute;
+            font-size: 1.5rem;
+            top: 10px;
+            right: 10px;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+        .stat-label {
+            color: #666;
+            font-size: 1rem;
+        }
+        .activity-log {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 1.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+        }
+        .log-entry {
+            padding: 0.5rem;
+            margin-bottom: 0.3rem;
+            border-left: 3px solid #667eea;
+            padding-left: 1rem;
+            animation: slideInLeft 0.3s;
+        }
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .log-entry.danger { border-left-color: #ff6b6b; color: #ff6b6b; }
+        .log-entry.success { border-left-color: #51cf66; color: #51cf66; }
+        .log-entry.info { border-left-color: #667eea; color: #667eea; }
+        .report-page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .report-container {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        .report-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid #e9ecef;
+        }
+        .report-section {
+            margin-bottom: 2rem;
+        }
+        .report-section h3 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        .report-section p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .comparison-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+        }
+        .comparison-table tr:hover {
+            background: #f8f9fa;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+            }
+            .logo {
+                font-size: 1.2rem;
+            }
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+            .home-page, .dashboard-page, .report-page {
+                padding: 2rem 1rem;
+            }
+            .pc-animation {
+                width: 200px;
+                height: 200px;
+            }
+            .pc-screen {
+                width: 150px;
+                height: 100px;
+            }
+            .pc-screen::before {
+                font-size: 3rem;
+            }
+            .pc-base {
+                width: 170px;
+            }
+            .features {
+                grid-template-columns: 1fr;
+            }
+            .malware-options {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .pc-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            .sim-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .sim-title {
+                font-size: 1.3rem;
+                text-align: center;
+            }
+            .sim-controls {
+                justify-content: center;
+            }
+            .btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+            .dashboard-header h2 {
+                font-size: 1.8rem;
+            }
+            .selector-title {
+                font-size: 1.2rem;
+            }
+            .report-container {
+                padding: 1.5rem;
+            }
+            .report-header h2 {
+                font-size: 1.8rem;
+            }
+            .report-section h3 {
+                font-size: 1.2rem;
+            }
+            .comparison-table {
+                font-size: 0.85rem;
+            }
+            .comparison-table th,
+            .comparison-table td {
+                padding: 0.5rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1rem;
+            }
+            .nav-links {
+                gap: 0.5rem;
+                font-size: 0.85rem;
+                width: 100%;
+                justify-content: center;
+            }
+            .pc-animation {
+                width: 150px;
+                height: 150px;
+            }
+            .pc-screen {
+                width: 120px;
+                height: 80px;
+            }
+            .pc-screen::before {
+                font-size: 2rem;
+            }
+            .pc-base {
+                width: 140px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .pc-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .stat-value {
+                font-size: 2rem;
+            }
+            .activity-log {
+                font-size: 0.85rem;
+                max-height: 200px;
+            }
+            .sim-controls {
+                flex-direction: column;
+            }
+            .btn {
+                width: 100%;
+            }
+            .comparison-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .malware-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .pc-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (min-width: 1025px) {
+            .pc-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="bgCanvas"></canvas>
+    <nav>
+        <div class="logo">
+            <span>🖥️</span>
+            <span>RedCell Simulator</span>
+        </div>
+        <ul class="nav-links">
+            <li><a onclick="showPage('home')" class="active">Home</a></li>
+            <li><a onclick="showPage('dashboard')">Dashboard</a></li>
+            <li><a onclick="showPage('simulation')">Simulation</a></li>
+            <li><a onclick="showPage('report')">Report</a></li>
+        </ul>
+    </nav>
+    <div id="home" class="page active">
+        <div class="home-page">
+            <div class="hero">
+                <h1>Welcome to RedCell Simulator</h1>
+                <p>Educational Platform for Understanding Malware Behavior</p>
+                <div class="pc-animation">
+                    <div class="pc-screen"></div>
+                    <div class="pc-base"></div>
+                </div>
+            </div>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🦠</div>
+                    <h3>Virus Simulation</h3>
+                    <p>Learn how viruses attach to files and spread through execution</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🪱</div>
+                    <h3>Worm Analysis</h3>
+                    <p>Understand automatic propagation across network systems</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🐴</div>
+                    <h3>Trojan Detection</h3>
+                    <p>Discover hidden malicious actions in legitimate software</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="dashboard" class="page">
+        <div class="dashboard-page">
+            <div class="dashboard-header">
+                <h2>Malware Control Dashboard</h2>
+                <p>Select a malware type to begin simulation</p>
+            </div>
+            <div class="malware-selector">
+                <h3 class="selector-title">Choose Malware Type</h3>
+                <div class="malware-options">
+                    <div class="malware-option" onclick="selectMalware('virus')">
+                        <div class="icon">🦠</div>
+                        <h3>Virus</h3>
+                        <p>File Infector</p>
+                    </div>
+                    <div class="malware-option" onclick="selectMalware('worm')">
+                        <div class="icon">🪱</div>
+                        <h3>Worm</h3>
+                        <p>Network Spreader</p>
+                    </div>
+                    <div class="malware-option" onclick="selectMalware('trojan')">
+                        <div class="icon">🐴</div>
+                        <h3>Trojan</h3>
+                        <p>Disguised Threat</p>
+                    </div>
+                </div>
+            </div>
+            <div id="stats-display" style="display: none;">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="total-systems">0</div>
+                        <div class="stat-label">Total Systems</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="infected-count" style="color: #ff6b6b;">0</div>
+                        <div class="stat-label">Infected</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="protected-count" style="color: #51cf66;">0</div>
+                        <div class="stat-label">Protected</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="clean-count" style="color: #667eea;">0</div>
+                        <div class="stat-label">Clean</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="simulation" class="page">
+        <div class="dashboard-page">
+            <div class="simulation-container" id="sim-container">
+                <div class="sim-header">
+                    <h2 class="sim-title" id="sim-title">Select Malware from Dashboard</h2>
+                    <div class="sim-controls">
+                        <button class="btn btn-primary" id="start-btn" onclick="startSimulation()" disabled>Start</button>
+                        <button class="btn btn-danger" id="stop-btn" onclick="stopSimulation()" disabled>Stop</button>
+                        <button class="btn btn-success" id="protect-btn" onclick="protectSystems()" disabled>Protect</button>
+                        <button class="btn btn-secondary" id="reset-btn" onclick="resetSimulation()" disabled>Reset</button>
+                    </div>
+                </div>
+                <div class="pc-grid" id="pc-grid"></div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="sim-total">0</div>
+                        <div class="stat-label">Total Systems</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="sim-infected" style="color: #ff6b6b;">0</div>
+                        <div class="stat-label">Infected</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="sim-protected" style="color: #51cf66;">0</div>
+                        <div class="stat-label">Protected</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="sim-clean" style="color: #667eea;">0</div>
+                        <div class="stat-label">Clean</div>
+                    </div>
+                </div>
+                <div class="activity-log" id="activity-log">
+                    <div class="log-entry info">System ready. Waiting for simulation start...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="report" class="page">
+        <div class="report-page">
+            <div class="report-container">
+                <div class="report-header">
+                    <h2>Malware Analysis Report</h2>
+                    <p>Comprehensive analysis of malware behavior and characteristics</p>
+                    <button class="btn btn-primary" onclick="generatePDF()" style="margin-top: 1rem;">Download PDF Report</button>
+                </div>
+                <div class="report-section">
+                    <h3>Executive Summary</h3>
+                    <p>This report provides an educational analysis of three primary malware types: Viruses, Worms, and Trojans. The simulation demonstrates their unique characteristics, spreading mechanisms, and potential system impacts in a controlled environment.</p>
+                </div>
+                <div class="report-section">
+                    <h3>Malware Characteristics</h3>
+                    <h4 style="color: #ff6b6b; margin-top: 1rem;">🦠 Virus</h4>
+                    <p><strong>Definition:</strong> A virus is malicious code that attaches itself to legitimate files or programs and requires user action to execute and spread.</p>
+                    <p><strong>Behavior:</strong> Replicates by inserting its code into host files. When the infected file is executed, the virus activates and can infect other files.</p>
+                    <p><strong>Spreading Mechanism:</strong> Requires user interaction (opening files, running programs). Cannot spread automatically.</p>
+                    <h4 style="color: #4ecdc4; margin-top: 1rem;">🪱 Worm</h4>
+                    <p><strong>Definition:</strong> A worm is self-replicating malware that spreads automatically across networks without requiring user action.</p>
+                    <p><strong>Behavior:</strong> Exploits network vulnerabilities to propagate from system to system. Creates copies of itself on each infected machine.</p>
+                    <p><strong>Spreading Mechanism:</strong> Automatic propagation through network connections. No user interaction required.</p>
+                    <h4 style="color: #ffd93d; margin-top: 1rem;">🐴 Trojan</h4>
+                    <p><strong>Definition:</strong> A trojan disguises itself as legitimate software but performs hidden malicious actions.</p>
+                    <p><strong>Behavior:</strong> Appears to be useful software but secretly performs harmful activities like data theft, backdoor creation, or system monitoring.</p>
+                    <p><strong>Spreading Mechanism:</strong> Social engineering - tricks users into installing by appearing legitimate.</p>
+                </div>
+                <div class="report-section">
+                    <h3>Comparison Table</h3>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Virus 🦠</th>
+                                <th>Worm 🪱</th>
+                                <th>Trojan 🐴</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Replication</td>
+                                <td>Attaches to files</td>
+                                <td>Self-replicates</td>
+                                <td>Does not replicate</td>
+                            </tr>
+                            <tr>
+                                <td>Spreading</td>
+                                <td>User action required</td>
+                                <td>Automatic</td>
+                                <td>User installation</td>
+                            </tr>
+                            <tr>
+                                <td>Host Dependency</td>
+                                <td>Requires host file</td>
+                                <td>Independent</td>
+                                <td>Appears legitimate</td>
+                            </tr>
+                            <tr>
+                                <td>Network Usage</td>
+                                <td>Limited</td>
+                                <td>Heavy network usage</td>
+                                <td>Moderate</td>
+                            </tr>
+                            <tr>
+                                <td>Detection</td>
+                                <td>Moderate difficulty</td>
+                                <td>Easy to detect (network traffic)</td>
+                                <td>Difficult (disguised)</td>
+                            </tr>
+                            <tr>
+                                <td>Primary Goal</td>
+                                <td>Destruction/corruption</td>
+                                <td>Rapid spreading</td>
+                                <td>Stealth operations</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="report-section">
+                    <h3>Simulation Results</h3>
+                    <p id="simulation-results">No simulation data available. Please run simulations from the Dashboard.</p>
+                </div>
+                <div class="report-section">
+                    <h3>Key Differences</h3>
+                    <p><strong>Propagation Method:</strong> Viruses need host files and user action, worms spread automatically through networks, and trojans rely on user deception.</p>
+                    <p><strong>Independence:</strong> Worms are standalone programs, viruses need host files, and trojans masquerade as legitimate software.</p>
+                    <p><strong>Speed of Spread:</strong> Worms spread fastest due to automation, viruses spread moderately with user activity, and trojans spread slowly through social engineering.</p>
+                    <p><strong>System Impact:</strong> Viruses corrupt files, worms consume network resources, and trojans perform covert operations.</p>
+                </div>
+                <div class="report-section">
+                    <h3>Conclusion</h3>
+                    <p>Understanding the differences between viruses, worms, and trojans is crucial for cybersecurity. Each type has distinct characteristics that require specific detection and prevention strategies. Modern antivirus solutions must address all three threat types through signature-based detection, behavioral analysis, and network monitoring.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let selectedMalware = null;
+        let simulationRunning = false;
+        let simulationInterval = null;
+        let systems = [];
+        let infectedSystems = new Set();
+        let protectedSystems = new Set();
+        let simulationData = {
+            virus: { runs: 0, totalInfected: 0, maxSpread: 0 },
+            worm: { runs: 0, totalInfected: 0, maxSpread: 0 },
+            trojan: { runs: 0, totalInfected: 0, maxSpread: 0 }
+        };
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+                this.color = `rgba(${102 + Math.random() * 50}, ${126 + Math.random() * 50}, ${234 + Math.random() * 20}, ${Math.random() * 0.5 + 0.3})`;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        class Wave {
+            constructor() {
+                this.y = Math.random() * canvas.height;
+                this.length = Math.random() * 300 + 200;
+                this.amplitude = Math.random() * 50 + 30;
+                this.frequency = Math.random() * 0.01 + 0.005;
+                this.speed = Math.random() * 0.5 + 0.2;
+                this.offset = Math.random() * Math.PI * 2;
+                this.opacity = Math.random() * 0.2 + 0.1;
+            }
+            update() {
+                this.offset += this.speed * 0.02;
+            }
+            draw() {
+                ctx.strokeStyle = `rgba(102, 126, 234, ${this.opacity})`;
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                for (let x = 0; x < canvas.width; x++) {
+                    const y = this.y + Math.sin(x * this.frequency + this.offset) * this.amplitude;
+                    if (x === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                }
+                ctx.stroke();
+            }
+        }
+        const particles = [];
+        const waves = [];
+        const particleCount = 50;
+        const waveCount = 5;
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+        for (let i = 0; i < waveCount; i++) {
+            waves.push(new Wave());
+        }
+        function connectParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 150) {
+                        ctx.strokeStyle = `rgba(102, 126, 234, ${0.2 * (1 - distance / 150)})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+        function animateBackground() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            waves.forEach(wave => {
+                wave.update();
+                wave.draw();
+            });
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            connectParticles();
+            requestAnimationFrame(animateBackground);
+        }
+        animateBackground();
+        function showPage(pageName) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+            document.getElementById(pageName).classList.add('active');
+            document.querySelector(`a[onclick="showPage('${pageName}')"]`).classList.add('active');
+            if (pageName === 'report') {
+                updateReportPage();
+            }
+        }
+        function selectMalware(type) {
+            selectedMalware = type;
+            document.querySelectorAll('.malware-option').forEach(opt => opt.classList.remove('selected'));
+            event.target.closest('.malware-option').classList.add('selected');
+            document.getElementById('stats-display').style.display = 'block';
+            initializeSimulation(type);
+            addLog(`${type.toUpperCase()} selected for simulation`, 'info');
+            document.getElementById('start-btn').disabled = false;
+            document.getElementById('reset-btn').disabled = false;
+        }
+        function initializeSimulation(type) {
+            const grid = document.getElementById('pc-grid');
+            grid.innerHTML = '';
+            systems = [];
+            infectedSystems.clear();
+            protectedSystems.clear();
+            const systemCount = type === 'worm' ? 12 : 16;
+            for (let i = 0; i < systemCount; i++) {
+                const pc = document.createElement('div');
+                pc.className = 'pc-item';
+                pc.innerHTML = `
+                    <div class="pc-icon">🖥️</div>
+                    <div class="pc-label">PC ${i + 1}</div>
+                `;
+                pc.dataset.index = i;
+                grid.appendChild(pc);
+                systems.push(pc);
+            }
+            updateStats();
+            const titles = {
+                virus: '🦠 Virus Simulation - File Infection',
+                worm: '🪱 Worm Simulation - Network Propagation',
+                trojan: '🐴 Trojan Simulation - Hidden Actions'
+            };
+            document.getElementById('sim-title').textContent = titles[type];
+            document.getElementById('sim-container').classList.add('active');
+        }
+        function startSimulation() {
+            if (simulationRunning || !selectedMalware) return;
+            simulationRunning = true;
+            document.getElementById('start-btn').disabled = true;
+            document.getElementById('stop-btn').disabled = false;
+            document.getElementById('protect-btn').disabled = false;
+            document.getElementById('reset-btn').disabled = true;
+            addLog(`${selectedMalware.toUpperCase()} simulation started`, 'danger');
+            if (selectedMalware === 'virus') {
+                runVirusSimulation();
+            } else if (selectedMalware === 'worm') {
+                runWormSimulation();
+            } else if (selectedMalware === 'trojan') {
+                runTrojanSimulation();
+            }
+        }
+        function stopSimulation() {
+            if (!simulationRunning) return;
+            simulationRunning = false;
+            if (simulationInterval) {
+                clearInterval(simulationInterval);
+                simulationInterval = null;
+            }
+            document.getElementById('start-btn').disabled = false;
+            document.getElementById('stop-btn').disabled = true;
+            document.getElementById('reset-btn').disabled = false;
+            addLog('Simulation stopped by user', 'info');
+            if (selectedMalware) {
+                simulationData[selectedMalware].runs++;
+                simulationData[selectedMalware].totalInfected += infectedSystems.size;
+                if (infectedSystems.size > simulationData[selectedMalware].maxSpread) {
+                    simulationData[selectedMalware].maxSpread = infectedSystems.size;
+                }
+            }
+        }
+        function protectSystems() {
+            const unprotectedInfected = Array.from(infectedSystems).filter(i => !protectedSystems.has(i));
+            if (unprotectedInfected.length === 0) {
+                addLog('No infected systems to protect', 'info');
+                return;
+            }
+            unprotectedInfected.forEach(index => {
+                protectedSystems.add(index);
+                infectedSystems.delete(index);
+                systems[index].classList.remove('infected');
+                systems[index].classList.add('protected');
+            });
+            updateStats();
+            addLog(`Protected ${unprotectedInfected.length} infected systems`, 'success');
+        }
+        function resetSimulation() {
+            if (simulationRunning) {
+                stopSimulation();
+            }
+            if (selectedMalware) {
+                initializeSimulation(selectedMalware);
+                addLog('Simulation reset', 'info');
+            }
+            document.getElementById('start-btn').disabled = false;
+            document.getElementById('stop-btn').disabled = true;
+            document.getElementById('protect-btn').disabled = true;
+            document.getElementById('reset-btn').disabled = false;
+        }
+        function runVirusSimulation() {
+            const startIndex = Math.floor(Math.random() * systems.length);
+            infectSystem(startIndex);
+            simulationInterval = setInterval(() => {
+                if (!simulationRunning) return;
+                const infected = Array.from(infectedSystems).filter(i => !protectedSystems.has(i));
+                if (infected.length === 0) return;
+                const sourceIndex = infected[Math.floor(Math.random() * infected.length)];
+                const uninfected = systems
+                    .map((s, i) => i)
+                    .filter(i => !infectedSystems.has(i) && !protectedSystems.has(i));
+                if (uninfected.length > 0) {
+                    const targetIndex = uninfected[Math.floor(Math.random() * uninfected.length)];
+                    infectSystem(targetIndex);
+                    addLog(`Virus spread from PC ${sourceIndex + 1} to PC ${targetIndex + 1}`, 'danger');
+                }
+                if (uninfected.length <= 1) {
+                    stopSimulation();
+                    addLog('Virus has infected all systems', 'danger');
+                }
+            }, 1500);
+        }
+        function runWormSimulation() {
+            const startIndex = 0;
+            infectSystem(startIndex);
+            let wave = [startIndex];
+            simulationInterval = setInterval(() => {
+                if (!simulationRunning) return;
+                const nextWave = [];
+                wave.forEach(index => {
+                    const neighbors = getNetworkNeighbors(index);
+                    neighbors.forEach(neighborIndex => {
+                        if (!infectedSystems.has(neighborIndex) && !protectedSystems.has(neighborIndex)) {
+                            infectSystem(neighborIndex);
+                            nextWave.push(neighborIndex);
+                            addLog(`Worm propagated to PC ${neighborIndex + 1} via network`, 'danger');
+                        }
+                    });
+                });
+                if (nextWave.length === 0) {
+                    stopSimulation();
+                    addLog('Worm propagation complete', 'danger');
+                } else {
+                    wave = nextWave;
+                }
+            }, 2000);
+        }
+        function runTrojanSimulation() {
+            simulationInterval = setInterval(() => {
+                if (!simulationRunning) return;
+                const uninfected = systems
+                    .map((s, i) => i)
+                    .filter(i => !infectedSystems.has(i) && !protectedSystems.has(i));
+                if (uninfected.length > 0) {
+                    const targetIndex = uninfected[Math.floor(Math.random() * uninfected.length)];
+                    infectSystem(targetIndex);
+                    const actions = [
+                        'Accessing credentials',
+                        'Reading files',
+                        'Capturing keystrokes',
+                        'Opening backdoor',
+                        'Stealing data'
+                    ];
+                    const action = actions[Math.floor(Math.random() * actions.length)];
+                    addLog(`Trojan on PC ${targetIndex + 1}: ${action}`, 'danger');
+                } else {
+                    stopSimulation();
+                    addLog('All systems compromised by trojan', 'danger');
+                }
+            }, 2500);
+        }
+        function infectSystem(index) {
+            if (protectedSystems.has(index)) return;
+            infectedSystems.add(index);
+            systems[index].classList.add('infected');
+            updateStats();
+        }
+        function getNetworkNeighbors(index) {
+            const cols = 4;
+            const row = Math.floor(index / cols);
+            const col = index % cols;
+            const neighbors = [];
+            if (col > 0) neighbors.push(index - 1);
+            if (col < cols - 1) neighbors.push(index + 1);
+            if (row > 0) neighbors.push(index - cols);
+            if (row < Math.floor(systems.length / cols)) neighbors.push(index + cols);
+            return neighbors.filter(n => n >= 0 && n < systems.length);
+        }
+        function updateStats() {
+            const total = systems.length;
+            const infected = infectedSystems.size;
+            const protected = protectedSystems.size;
+            const clean = total - infected - protected;
+            document.getElementById('total-systems').textContent = total;
+            document.getElementById('infected-count').textContent = infected;
+            document.getElementById('protected-count').textContent = protected;
+            document.getElementById('clean-count').textContent = clean;
+            document.getElementById('sim-total').textContent = total;
+            document.getElementById('sim-infected').textContent = infected;
+            document.getElementById('sim-protected').textContent = protected;
+            document.getElementById('sim-clean').textContent = clean;
+        }
+        function addLog(message, type = 'info') {
+            const logArea = document.getElementById('activity-log');
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            const timestamp = new Date().toLocaleTimeString();
+            entry.textContent = `[${timestamp}] ${message}`;
+            logArea.appendChild(entry);
+            logArea.scrollTop = logArea.scrollHeight;
+        }
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.setFontSize(20);
+            doc.setTextColor(102, 126, 234);
+            doc.text('Malware Analysis Report', 105, 20, { align: 'center' });
+            doc.setFontSize(12);
+            doc.setTextColor(100);
+            doc.text('RedCell Simulator - Educational Platform', 105, 28, { align: 'center' });
+            doc.setFontSize(10);
+            doc.setTextColor(150);
+            doc.text(`Generated: ${new Date().toLocaleString()}`, 105, 35, { align: 'center' });
+            doc.setFontSize(14);
+            doc.setTextColor(0);
+            doc.text('Executive Summary', 20, 50);
+            doc.setFontSize(10);
+            doc.setTextColor(80);
+            const summary = 'This report provides an educational analysis of three primary malware types: Viruses, Worms, and Trojans. The simulation demonstrates their unique characteristics, spreading mechanisms, and potential system impacts in a controlled environment.'; 
+            const splitSummary = doc.splitTextToSize(summary, 170);
+            doc.text(splitSummary, 20, 58);
+            doc.setFontSize(12);
+            doc.setTextColor(255, 107, 107);
+            doc.text('VIRUS - File Infector', 20, 80);
+            doc.setFontSize(10);
+            doc.setTextColor(0);
+            doc.text('Definition:', 20, 88);
+            doc.setTextColor(80);
+            const virusDef = 'A virus is malicious code that attaches itself to legitimate files or programs and requires user action to execute and spread.';
+            doc.text(doc.splitTextToSize(virusDef, 170), 20, 95);
+            doc.setTextColor(0);
+            doc.text('Spreading Mechanism:', 20, 108);
+            doc.setTextColor(80);
+            doc.text('Requires user interaction. Cannot spread automatically.', 20, 115);
+            doc.setFontSize(12);
+            doc.setTextColor(78, 205, 196);
+            doc.text('WORM - Network Spreader', 20, 130);
+            doc.setFontSize(10);
+            doc.setTextColor(0);
+            doc.text('Definition:', 20, 138);
+            doc.setTextColor(80);
+            const wormDef = 'A worm is self-replicating malware that spreads automatically across networks without requiring user action.';
+            doc.text(doc.splitTextToSize(wormDef, 170), 20, 145);
+            doc.setTextColor(0);
+            doc.text('Spreading Mechanism:', 20, 158);
+            doc.setTextColor(80);
+            doc.text('Automatic propagation through network. No user interaction required.', 20, 165);
+            doc.setFontSize(12);
+            doc.setTextColor(255, 217, 61);
+            doc.text('TROJAN - Disguised Threat', 20, 180);
+            doc.setFontSize(10);
+            doc.setTextColor(0);
+            doc.text('Definition:', 20, 188);
+            doc.setTextColor(80);
+            const trojanDef = 'A trojan disguises itself as legitimate software but performs hidden malicious actions.';
+            doc.text(doc.splitTextToSize(trojanDef, 170), 20, 195);
+            doc.setTextColor(0);
+            doc.text('Spreading Mechanism:', 20, 208);
+            doc.setTextColor(80);
+            doc.text('Social engineering - tricks users by appearing legitimate.', 20, 215);
+            doc.addPage();
+            doc.setFontSize(14);
+            doc.setTextColor(0);
+            doc.text('Simulation Results', 20, 20);
+            doc.setFontSize(10);
+            let yPos = 30;
+            Object.keys(simulationData).forEach(malware => {
+                const data = simulationData[malware];
+                doc.setTextColor(0);
+                doc.text(`${malware.toUpperCase()}:`, 20, yPos);
+                doc.setTextColor(80);
+                doc.text(`Simulations Run: ${data.runs}`, 30, yPos + 7);
+                doc.text(`Total Infections: ${data.totalInfected}`, 30, yPos + 14);
+                doc.text(`Maximum Spread: ${data.maxSpread} systems`, 30, yPos + 21);
+                yPos += 35;
+            });
+            doc.setFontSize(14);
+            doc.setTextColor(0);
+            doc.text('Key Differences', 20, yPos + 10);
+            doc.setFontSize(10);
+            doc.setTextColor(80);
+            yPos += 20;
+            const differences = [
+                'Propagation: Viruses need host files, worms spread automatically, trojans use deception.',
+                'Independence: Worms are standalone, viruses need hosts, trojans masquerade.',
+                'Speed: Worms spread fastest, viruses moderately, trojans slowly.',
+                'Impact: Viruses corrupt files, worms consume resources, trojans operate covertly.'
+            ];
+            differences.forEach(diff => {
+                const lines = doc.splitTextToSize(diff, 170);
+                doc.text(lines, 20, yPos);
+                yPos += lines.length * 7 + 3;
+            });
+            doc.setFontSize(14);
+            doc.setTextColor(0);
+            doc.text('Conclusion', 20, yPos + 10);
+            doc.setFontSize(10);
+            doc.setTextColor(80);
+            const conclusion = 'Understanding the differences between viruses, worms, and trojans is crucial for cybersecurity. Each type requires specific detection and prevention strategies. Modern security solutions must address all three threat types through comprehensive monitoring and analysis.';
+            doc.text(doc.splitTextToSize(conclusion, 170), 20, yPos + 20);
+            doc.setFontSize(8);
+            doc.setTextColor(150);
+            doc.text('RedCell Simulator - Educational Purpose Only', 105, 285, { align: 'center' });
+            doc.save('Malware_Analysis_Report.pdf');
+            addLog('PDF Report generated successfully', 'success');
+        }
+        function updateReportPage() {
+            let resultsHTML = '<h4>Simulation Statistics:</h4>';
+            Object.keys(simulationData).forEach(malware => {
+                const data = simulationData[malware];
+                resultsHTML += `
+                    <p><strong>${malware.toUpperCase()}:</strong><br>
+                    Simulations Run: ${data.runs}<br>
+                    Total Systems Infected: ${data.totalInfected}<br>
+                    Maximum Spread: ${data.maxSpread} systems</p>
+                `;
+            });
+            if (simulationData.virus.runs === 0 && simulationData.worm.runs === 0 && simulationData.trojan.runs === 0) {
+                resultsHTML = '<p>No simulation data available. Please run simulations from the Dashboard.</p>';
+            }
+            document.getElementById('simulation-results').innerHTML = resultsHTML;
+        }
+    </script>
+    <script type="text/python">
+from browser import document, window
+import time
+def _create_log_entry(message, typ='info'):
+    log_area = document["activity-log"]
+    entry = document.createElement("div")
+    entry.className = f"log-entry {typ}"
+    timestamp = time.strftime("%H:%M:%S")
+    entry.textContent = f"[{timestamp}] {message}"
+    log_area <= entry  # append
+    log_area.scrollTop = log_area.scrollHeight
+try:
+    _create_log_entry("Brython loaded — Python interpreter active", "info")
+except Exception as e:
+    try:
+        window.addLog(f"Brython error: {e}", "danger")
+    except:
+        pass
+def brython_ping(ev=None):
+    _create_log_entry("Brython pinged from browser", "success")
+window.brython_ping = brython_ping
+    </script>
+    <script>
+        window.addEventListener('load', function(){
+            try {
+                if (typeof brython === 'function') {
+                    brython(); 
+                }
+            } catch (e) {
+                console.warn('Brython init error:', e);
+            }
+        });
+    </script>
+</body>
+</html>
