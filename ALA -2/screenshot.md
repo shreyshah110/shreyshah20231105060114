@@ -1,0 +1,17 @@
+
+
+![Screenshot 1](ALA%20-2/Screenshot%202025-10-08%20175624.png)
+![Screenshot 2](ALA%20-2/Screenshot%202025-10-08%20180034.png)
+![Screenshot 3](ALA%20-2/Screenshot%202025-10-08%20180058.png)
+![Screenshot 4](ALA%20-2/Screenshot%202025-10-08%20180108.png)
+![Screenshot 5](ALA%20-2/Screenshot%202025-10-08%20180115.png)
+![Screenshot 6](ALA%20-2/Screenshot%202025-10-08%20180136.png)
+![Screenshot 7](ALA%20-2/Screenshot%202025-10-08%20180145.png)
+![Screenshot 8](ALA%20-2/Screenshot%202025-10-08%20180216.png)
+![Screenshot 9](ALA%20-2/Screenshot%202025-10-08%20180224.png)
+![Screenshot 10](ALA%20-2/Screenshot%202025-10-08%20180240.png)
+![Screenshot 11](ALA%20-2/Screenshot%202025-10-08%20180249.png)
+![Screenshot 12](ALA%20-2/Screenshot%202025-10-08%20180257.png)
+![Screenshot 13](ALA%20-2/Screenshot%202025-10-08%20180303.png)
+![Screenshot 14](ALA%20-2/Screenshot%202025-10-08%20180325.png)
+![Screenshot 15](ALA%20-2/Screenshot%202025-10-08%20180333.png)
