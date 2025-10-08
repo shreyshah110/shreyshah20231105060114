@@ -1,17 +1,28 @@
-# ALA - 2 Screenshots
+# 📸 Project Screenshots
 
-![Screenshot 1](https://github.com/shreyshah110/shreyshah20231105060114/blob/main/ALA%20-2/Screenshot%202025-10-08%20175624.png?raw=true)
-![Screenshot 2](https://github.com/shreyshah110/shreyshah20231105060114/blob/main/ALA%20-2/Screenshot%202025-10-08%20180034.png?raw=true)
-![Screenshot 3](https://github.com/shreyshah110/shreyshah20231105060114/blob/main/ALA%20-2/Screenshot%202025-10-08%20180058.png?raw=true)
-![Screenshot 4](https://github.com/shreyshah110/shreyshah20231105060114/blob/main/ALA%20-2/Screenshot%202025-10-08%20180108.png?raw=true)
-![Screenshot 5](https://github.com/shreyshah110/shreyshah20231105060114/blob/main/ALA%20-2/Screenshot%202025-10-08%20180115.png?raw=true)
-![Screenshot 6](https://github.com/shreyshah110/shreyshah20231105060114/blob/main/ALA%20-2/Screenshot%202025-10-08%20180136.png?raw=true)
-![Screenshot 7](https://github.com/shreyshah110/shreyshah20231105060114/blob/main/ALA%20-2/Screenshot%202025-10-08%20180145.png?raw=true)
-![Screenshot 8](https://github.com/shreyshah110/shreyshah20231105060114/blob/main/ALA%20-2/Screenshot%202025-10-08%20180216.png?raw=true)
-![Screenshot 9](https://github.com/shreyshah110/shreyshah20231105060114/blob/main/ALA%20-2/Screenshot%202025-10-08%20180224.png?raw=true)
-![Screenshot 10](https://github.com/shreyshah110/shreyshah20231105060114/blob/main/ALA%20-2/Screenshot%202025-10-08%20180240.png?raw=true)
-![Screenshot 11](https://github.com/shreyshah110/shreyshah20231105060114/blob/main/ALA%20-2/Screenshot%202025-10-08%20180249.png?raw=true)
-![Screenshot 12](https://github.com/shreyshah110/shreyshah20231105060114/blob/main/ALA%20-2/Screenshot%202025-10-08%20180257.png?raw=true)
-![Screenshot 13](https://github.com/shreyshah110/shreyshah20231105060114/blob/main/ALA%20-2/Screenshot%202025-10-08%20180303.png?raw=true)
-![Screenshot 14](https://github.com/shreyshah110/shreyshah20231105060114/blob/main/ALA%20-2/Screenshot%202025-10-08%20180325.png?raw=true)
-![Screenshot 15](https://github.com/shreyshah110/shreyshah20231105060114/blob/main/ALA%20-2/Screenshot%202025-10-08%20180333.png?raw=true)
+All screenshots are stored inside the subfolder:  
+`./screens/screens/`
+
+---
+
+## Screenshot List
+
+![Screenshot 175624](./screens/screens/Screenshot%202025-10-08%20175624.png)
+![Screenshot 180034](./screens/screens/Screenshot%202025-10-08%20180034.png)
+![Screenshot 180058](./screens/screens/Screenshot%202025-10-08%20180058.png)
+![Screenshot 180108](./screens/screens/Screenshot%202025-10-08%20180108.png)
+![Screenshot 180115](./screens/screens/Screenshot%202025-10-08%20180115.png)
+![Screenshot 180136](./screens/screens/Screenshot%202025-10-08%20180136.png)
+![Screenshot 180145](./screens/screens/Screenshot%202025-10-08%20180145.png)
+![Screenshot 180216](./screens/screens/Screenshot%202025-10-08%20180216.png)
+![Screenshot 180224](./screens/screens/Screenshot%202025-10-08%20180224.png)
+![Screenshot 180240](./screens/screens/Screenshot%202025-10-08%20180240.png)
+![Screenshot 180249](./screens/screens/Screenshot%202025-10-08%20180249.png)
+![Screenshot 180257](./screens/screens/Screenshot%202025-10-08%20180257.png)
+![Screenshot 180303](./screens/screens/Screenshot%202025-10-08%20180303.png)
+![Screenshot 180325](./screens/screens/Screenshot%202025-10-08%20180325.png)
+![Screenshot 180333](./screens/screens/Screenshot%202025-10-08%20180333.png)
+
+---
+
+Each image above corresponds to a key step or output screen of your project workflow.
